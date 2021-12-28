@@ -1,0 +1,39 @@
+
+build docker:
+docker build .
+
+check docker compose version:
+docker-compose --version
+
+build docker image using docker compose:
+docker-compose build
+
+create django app using docker compose:
+docker-compose run app sh -c "django-admin.py startproject app ."
+
+create the core app:
+sudo docker-compose run app sh -c "python manage.py startapp core"
+
+
+make migrations:
+sudo docker-compose run app sh -c "python manage.py makemigrations core"
+
+
+run tests only:
+sudo docker-compose run app sh -c "python manage.py test"
+
+
+run tests and flake8:
+sudo docker-compose run app sh -c "python manage.py test && flake8 --ignore=E126,E303,W291,W292,W293"
+
+run tests and flake8 and remove any saved modules running (add --rm):
+sudo docker-compose run --rm app sh -c "python manage.py test && flake8 --ignore=E126,E303,W291,W292,W293"
+
+
+
+
+upload the docker development server with the db
+sudo docker-compose up
+
+run django super user:
+sudo docker-compose run app sh -c "python manage.py createsuperuser"
