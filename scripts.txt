@@ -17,6 +17,7 @@ sudo docker-compose run app sh -c "python manage.py startapp core"
 
 make migrations:
 sudo docker-compose run app sh -c "python manage.py makemigrations core"
+sudo docker-compose run app sh -c "python manage.py migrate"
 
 
 run tests only:
@@ -37,3 +38,25 @@ sudo docker-compose up
 
 run django super user:
 sudo docker-compose run app sh -c "python manage.py createsuperuser"
+
+
+create ubuntu root user
+sudo visudo
+
+update in the opened file after that line:
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+
+add that:
+username ALL=(ALL:ALL)ALL
+
+login to the user
+su - username
+
+update permissions
+sudo apt-get update
+
+
+update the user in the docker users group
+sudo gpasswd -a $username$ docker
+sudo su $username$
